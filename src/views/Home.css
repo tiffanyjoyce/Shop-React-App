@@ -1,0 +1,12 @@
+.welcome{
+    font-size:50pt;
+    margin-top: 100px;
+    text-align: center;
+}
+.shop-now{
+    margin: 0 auto;
+}
+.buttons{
+    display: flex;
+
+}

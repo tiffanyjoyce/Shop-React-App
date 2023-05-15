@@ -1,14 +1,4 @@
-.product-info{
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap:20px;
-}
-.prod-cards{
-    margin: 0 auto;
-}
-.prod-title{
-    font-size: 30pt;
-    text-align: center;
-    margin: 20px;
+.prod-card{
+    margin:100px auto;
+
 }

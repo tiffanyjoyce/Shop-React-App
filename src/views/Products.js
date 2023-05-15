@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import './Product.css'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import './Products.css'
+import { DataContext } from '../context/DataProvider';
 
 const Products = () => {
   // const local_url = 'http://127.0.0.1:5000/products';
@@ -17,6 +18,8 @@ const Products = () => {
   // }
   
   const [products, setProducts] = useState([])
+  const {cart, setCart} = useContext(DataContext)
+
   async function allproducts(){
     fetch('http://127.0.0.1:5000/products',{
       method: "GET",
@@ -38,6 +41,25 @@ const Products = () => {
   }, [])
 
   useEffect(()=>{console.log(products)},[products])
+
+  const addProduct=(product)=>{
+    let copyCart= {...cart}
+
+    copyCart.size++;
+    copyCart.total+=product.price;
+
+    // if(copyCart.products[product.id]){
+    //   copyCart.products[product.id].quantity++
+    // }else{
+    //   copyCart.products[product.id]={data:product, quantity:1}
+    // }
+    copyCart.products[product.id] ? copyCart.products[product.id].quantity++ :
+    copyCart.products[product.id]={data:product, quantity:1}
+
+    console.log(copyCart)
+
+    setCart(copyCart)
+  }
   return (
     <div className='container'>
       <p className='prod-title'>Products</p>
@@ -52,8 +74,8 @@ const Products = () => {
     <p>{product.description}</p>
     <p>{product.rating} <i class="fa-sharp fa-solid fa-star"></i> ({product.rating_count})</p>
     <div className="card-actions justify-end">
-      <button className='btn btn-primary'>View</button>
-      <button className="btn btn-primary">Add to cart</button>
+      <Link to={`/products/${product.id}`}><button className='btn btn-primary'>View</button></Link>
+      <button className="btn btn-primary" onClick={()=>addProduct(product)}>Add to cart</button>
     </div>
   </div>
 </div>
